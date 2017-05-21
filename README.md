@@ -1,2 +1,2 @@
-# d'alva
-Generic taxonomy manager built with React
+# oie
+An application builder that uses React and Firebase
