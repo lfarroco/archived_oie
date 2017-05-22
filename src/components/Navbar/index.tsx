@@ -11,11 +11,9 @@ export class Navbar extends React.Component<NavBarProps, undefined> {
 
     render() {
 
-        let buttons = [];
+        let leftButtons = Object.keys(NavBarButtons.leftButtons).map((parentKey, index) => {
 
-        buttons = Object.keys(NavBarButtons).map((parentKey, index) => {
-
-            let button: any = NavBarButtons[parentKey];
+            let button: any = NavBarButtons.leftButtons[parentKey];
 
             let children = Object.keys(button.children).map((childKey, index) => {
 
@@ -25,7 +23,7 @@ export class Navbar extends React.Component<NavBarProps, undefined> {
                     <NavbarButton
                         target={child.target}
                         label={childKey}
-                        onClick={(e: string) => { this.handleLinkClick(e) }}
+                        onClick={(target: string) => { this.handleLinkClick(target) }}
                         icon={child.icon} />
                 </li>
 
@@ -39,6 +37,20 @@ export class Navbar extends React.Component<NavBarProps, undefined> {
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">{children}</ul>
+            </li>
+
+        });
+
+        let rightButtons = Object.keys(NavBarButtons.rightButtons).map((key, index) => {
+
+            let button = NavBarButtons.rightButtons[key];
+
+            return <li key={index}>
+                <NavbarButton
+                    target={button.target}
+                    label={key}
+                    onClick={(target: string) => { this.handleLinkClick(target) }}
+                    icon={button.icon} />
             </li>
 
         });
@@ -59,14 +71,12 @@ export class Navbar extends React.Component<NavBarProps, undefined> {
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">
 
-                        {buttons}
+                        {leftButtons}
 
                     </ul>
 
                     <ul className="nav navbar-nav navbar-right">
-                        <li><a href="#list/screens"> <span className="glyphicon glyphicon-list-alt"></span> Telas</a></li>
-                        <li><a href="#list/routes"> <span className="glyphicon glyphicon-cog"></span> Rotas</a></li>
-                        <li><a href="#list/taxonomies"> <span className="glyphicon glyphicon-list-th"></span> Taxonomias</a></li>
+                        {rightButtons}
                     </ul>
                 </div>
             </div>

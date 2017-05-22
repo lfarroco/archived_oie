@@ -55,19 +55,19 @@ export class TaxonomyToolbar extends React.Component<TaxonomyToolbarProps, undef
 
     registerButton() {
 
-        if (this.props.route.page === "list")
-            return <div className="btn btn-success"
-                onClick={e => {
+        //if (this.props.route.page === "list")
+        return <div className="btn btn-success"
+            onClick={e => {
 
-                    this.changeRoute({
-                        page: 'add',
-                        taxonomy: this.props.route.taxonomy
-                    })
+                this.changeRoute({
+                    page: 'add',
+                    taxonomy: this.props.route.taxonomy
+                })
 
-                    this.props.onaddClick();
+                this.props.onaddClick();
 
-                }}>
-                Cadastrar {this.props.taxonomy.name}</div>
+            }}>
+            Cadastrar {this.props.taxonomy.name}</div>
 
 
     }

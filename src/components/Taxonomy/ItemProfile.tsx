@@ -18,7 +18,7 @@ export class ItemProfile extends React.Component<ItemProfileProps, undefined> {
         console.log('item being viewed', this.props.item)
 
         return <GenericForm
-            element={this.props.item}
+            item={this.props.item}
             fields={this.props.fields}
             onSubmit={(item: any) => { this.props.onSubmit(item) }} />
 

@@ -19,8 +19,10 @@ export class FormGroup extends React.Component<FormGroupProps, undefined> {
     render() {
 
         let input;
+        console.log('received type:', this.props.type)
 
-        if (this.props.type == 'fieldEditor')
+        if (this.props.type == 'fieldEditor') {
+
             input = <FieldEditor
                 fields={this.props.value || {}}
                 onChange={(id: string, name: string, value: string) => {
@@ -38,7 +40,8 @@ export class FormGroup extends React.Component<FormGroupProps, undefined> {
                 }}
 
             />
-        if (this.props.type == 'itemPicker') {
+        }
+        else if (this.props.type == 'itemPicker') {
 
             input = <div />
 

@@ -3,28 +3,32 @@ import * as React from "react";
 import { FormGroup } from "../FormGroup";
 import { ItemFields } from "../Taxonomy/ItemFields";
 import { ItemFieldsCollection } from "../Taxonomy/TaxonomyItem";
+import { Item } from "../Taxonomy/Taxonomy";
 
 export interface GenericFormProps {
-    element: any;
+    item: Item;
     onSubmit: Function;
     fields: ItemFieldsCollection;
 }
 
-export interface GenericFormState {
-    element: any;
-}
-
-export class GenericForm extends React.Component<GenericFormProps, GenericFormState> {
+export class GenericForm extends React.Component<GenericFormProps, Item> {
 
     constructor(props: GenericFormProps) {
         super(props);
 
-        let element = JSON.parse(JSON.stringify(this.props.element));
+        let item: Item = JSON.parse(JSON.stringify(this.props.item));
 
-        //if (!element.fields)
-        //element.fields = {};
+        let state: Item = new Item();
 
-        this.state = { element: element };
+        Object.keys(item).map(key => {
+
+            state[key] = item[key];
+
+        })
+
+        if (!state.fields) state.fields = {};
+
+        this.state = state;
 
     }
 
@@ -34,12 +38,14 @@ export class GenericForm extends React.Component<GenericFormProps, GenericFormSt
 
             let field = this.props.fields[key];
 
+            console.log('creating field:', field);
+
             return <FormGroup
                 key={index}
                 type={field.type}
                 name={key}
                 label={field.label}
-                value={this.state.element[key]}
+                value={this.state[key]}
                 cols={field.cols}
                 onChange={(e: any) => { this.handleInputChange(e) }}
                 onFieldChange={(id: string, name: string, value: string) => {
@@ -59,7 +65,7 @@ export class GenericForm extends React.Component<GenericFormProps, GenericFormSt
 
             onSubmit={e => {
                 e.preventDefault();
-                this.props.onSubmit(this.state.element)
+                this.props.onSubmit(this.state)
             }}>
 
             <div className="row">
@@ -74,48 +80,38 @@ export class GenericForm extends React.Component<GenericFormProps, GenericFormSt
 
     handleFieldEditorChange(id: string, name: string, value: string) {
 
-        let element = JSON.parse(JSON.stringify(this.state.element));
+        let fields = JSON.parse(JSON.stringify(this.state.fields));
 
-        console.log(id, name, value)
+        fields[id][name] = value;
 
-        console.log('will update', element)
-
-        element.fields[id][name] = value;
-
-        console.log('updated', element)
-
-        this.setState({ element: element })
+        this.setState({ fields: fields })
 
     }
 
     handleFieldEditorAdd(id: string) {
 
-        let element = JSON.parse(JSON.stringify(this.state.element));
+        let fields = JSON.parse(JSON.stringify(this.state.fields));
 
-        console.log(element);
+        if (!fields)
+            fields = {};
 
-        if (!element.fields)
-            element.fields = {};
-
-        element.fields[id] = {
+        fields[id] = {
             type: "",
             label: "",
             cols: ""
         };
 
-        console.log('>>>', element)
-
-        this.setState({ element: element })
+        this.setState({ fields: fields })
 
     }
 
     handleFieldEditorDelete(id: string) {
 
-        let element = JSON.parse(JSON.stringify(this.state.element));
+        let fields = JSON.parse(JSON.stringify(this.state.fields));
 
-        delete element.fields[id];
+        delete fields[id];
 
-        this.setState({ element: element })
+        this.setState({ fields: fields })
 
     }
 
@@ -125,13 +121,15 @@ export class GenericForm extends React.Component<GenericFormProps, GenericFormSt
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        let element = JSON.parse(JSON.stringify(this.state.element));
-
-        element[name] = value;
-
-        this.setState({ element: element })
+        this.setState({ [name]: value })
 
     }
 
+    componentWillReceiveProps(nextProps: GenericFormProps) {
+
+        this.setState({
+            item: nextProps.item
+        });
+    }
 
 }

@@ -1,73 +1,91 @@
 export const NavBarButtons: any = {
-    "Alunos": {
-        icon: "user",
-        children: {
-            "Listar Alunos": {
-                target: "clients/list",
-                icon: "user"
-            },
-            "Cadastrar Aluno": {
-                target: "clients/add",
-                icon: "plus"
-            }
+    leftButtons: {
+        "Alunos": {
+            icon: "user",
+            children: {
+                "Listar Alunos": {
+                    target: "clients/list",
+                    icon: "user"
+                },
+                "Cadastrar Aluno": {
+                    target: "clients/add",
+                    icon: "plus"
+                }
 
-        }
+            }
+        },
+        "Funcionários": {
+            icon: "user",
+            children: {
+                "Listar Funcionários": {
+                    target: "employees/list",
+                    icon: "user"
+                },
+                "Cadastrar Funcionário": {
+                    target: "employees/add",
+                    icon: "plus"
+                }
+
+            }
+        },
+        "Aulas": {
+            icon: "calendar",
+            children: {
+                "Listar Aulas": {
+                    target: "lessons/list",
+                    icon: "user"
+                },
+                "Marcar Aula": {
+                    target: "lessons/add",
+                    icon: "plus"
+                }
+
+            }
+        },
+        "Turmas": {
+            icon: "education",
+            children: {
+                "Listar Turmas": {
+                    target: "classes/list",
+                    icon: "users"
+                },
+                "Marcar Turma": {
+                    target: "classes/add",
+                    icon: "plus"
+                }
+
+            }
+        },
+        "Matérias": {
+            icon: "education",
+            children: {
+                "Listar Matérias": {
+                    target: "disciplines/list",
+                    icon: "education"
+                },
+                "Adicionar Matérias": {
+                    target: "disciplines/add",
+                    icon: "plus"
+                }
+
+            }
+        },
     },
-    "Funcionários": {
-        icon: "user",
-        children: {
-            "Listar Funcionários": {
-                target: "employees/list",
-                icon: "user"
-            },
-            "Cadastrar Funcionário": {
-                target: "employees/add",
-                icon: "plus"
-            }
+    rightButtons: {
 
+        "Telas": {
+            target: "screens/list",
+            icon: "list-alt"
+        },
+        "Rotas": {
+            target: "routes/add",
+            icon: "share"
+        },
+        "Taxonomias": {
+            target: "taxonomies/add",
+            icon: "list-th"
         }
-    },
-    "Aulas": {
-        icon: "calendar",
-        children: {
-            "Listar Aulas": {
-                target: "lessons/list",
-                icon: "user"
-            },
-            "Marcar Aula": {
-                target: "lessons/add",
-                icon: "plus"
-            }
 
-        }
-    },
-    "Turmas": {
-        icon: "education",
-        children: {
-            "Listar Turmas": {
-                target: "classes/list",
-                icon: "users"
-            },
-            "Marcar Turma": {
-                target: "classes/add",
-                icon: "plus"
-            }
-
-        }
-    },
-    "Matérias": {
-        icon: "education",
-        children: {
-            "Listar Matérias": {
-                target: "disciplines/list",
-                icon: "education"
-            },
-            "Adicionar Matérias": {
-                target: "disciplines/add",
-                icon: "plus"
-            }
-
-        }
     }
 
 };

@@ -1,6 +1,7 @@
 import { ItemCollection, ItemFieldsCollection } from "./TaxonomyItem"
 
 export class Item {
+    [index: string]: any;
     key: string;
     slug: string;
     name: string;

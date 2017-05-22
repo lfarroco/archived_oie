@@ -230,28 +230,28 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
 
     renderToolbar() {
 
-        if (this.props.route.page === "list")
-            return <TaxonomyToolbar
-                taxonomy={this.props.taxonomy}
-                route={this.props.route}
-                onaddClick={() => {
-                    this.setState({ selectedItem: new Item() })
-                }}
-                onFilter={(filter: filterOptions) => {
-                    this.setState({
-                        filter: filter
-                    });
-                }}
-                onRouteChange={(r: RouteParams) => {
-                    this.changeRoute(r)
-                }}
-                onClearFilter={() => {
+        //if (this.props.route.page === "list")
+        return <TaxonomyToolbar
+            taxonomy={this.props.taxonomy}
+            route={this.props.route}
+            onaddClick={() => {
+                this.setState({ selectedItem: new Item() })
+            }}
+            onFilter={(filter: filterOptions) => {
+                this.setState({
+                    filter: filter
+                });
+            }}
+            onRouteChange={(r: RouteParams) => {
+                this.changeRoute(r)
+            }}
+            onClearFilter={() => {
 
-                    this.setState({
-                        filter: undefined
-                    });
+                this.setState({
+                    filter: undefined
+                });
 
-                }} />
+            }} />
     }
 
 

@@ -85,12 +85,15 @@ export class FilterForm extends React.Component<FilterFormProps, FilterFormState
             </div>
 
             <div className="col-sm-6">
-                <button className="btn btn-primary"
-                    type="submit"
-                >Filtrar
+                <label>Filtro</label>
+                <div>
+                    <button className="btn btn-primary"
+                        type="submit"
+                    >Filtrar
                 </button>
-                <div className="btn btn-default"
-                    onClick={e => { this.props.onClearFilter() }}>Limpar Filtro
+                    <div className="btn btn-default"
+                        onClick={e => { this.props.onClearFilter() }}>Limpar Filtro
+                </div>
                 </div>
             </div>
 
