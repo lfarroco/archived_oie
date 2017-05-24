@@ -9,6 +9,7 @@ export interface GenericFormProps {
     item: Item;
     onSubmit: Function;
     fields: ItemFieldsCollection;
+    title: string;
 }
 
 export class GenericForm extends React.Component<GenericFormProps, Item> {
@@ -62,17 +63,24 @@ export class GenericForm extends React.Component<GenericFormProps, Item> {
         });
 
         return <form
+            className="panel"
 
             onSubmit={e => {
                 e.preventDefault();
                 this.props.onSubmit(this.state)
             }}>
 
-            <div className="row">
-                {formGroupItems}
-            </div>
+            <header>
+                <h4>Cadastrar {this.props.title}</h4>
+            </header>
 
-            <input type="submit" value="Salvar" className="btn btn-info" />
+            <section>
+                {formGroupItems}
+            </section>
+
+            <footer>
+                <input type="submit" value="Salvar" className="btn btn-info" />
+            </footer>
 
         </form>
 

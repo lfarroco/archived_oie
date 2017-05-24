@@ -32,14 +32,12 @@ export class ItemListDetails extends React.Component<ItemListDetailsProps, undef
 
             <td width="1">
 
-                <span className="pull-right"
+                <span className="btn pull-right"
                     onClick={(e) => {
                         this.props.onDeleteItem(e)
                     }}
                 >
-                    <span className="btn btn-xs btn-default">
-                        <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </span>
+                    Remover
                 </span>
 
             </td>

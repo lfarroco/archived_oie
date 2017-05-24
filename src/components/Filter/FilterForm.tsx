@@ -44,58 +44,68 @@ export class FilterForm extends React.Component<FilterFormProps, FilterFormState
             return <option key={index} value={op.symbol}>{op.name}</option>;
         });
 
-        return <form className="row" style={{ marginTop: 15, marginBottom: 15 }}
+        return <form className="panel" style={{ marginTop: 15, marginBottom: 15 }}
             onSubmit={e => {
                 e.preventDefault();
                 this.filter();
             }}
         >
 
-            <div className="col-sm-2">
-                <label>Campo</label>
-                <select
-                    value={this.state.property}
-                    name="property"
-                    className="form-control"
-                    onChange={e => { this.handleInputChange(e); }}>
-                    <option value="ANY">Todos</option>
-                    {props}
-                </select>
-            </div>
 
-            <div className="col-sm-2">
-                <label>Operador</label>
-                <select
-                    value={this.state.operator.symbol}
-                    name="operator"
-                    className="form-control"
-                    onChange={e => { this.handleInputChange(e); }}>
-                    {operators}
-                </select>
-            </div>
 
-            <div className="col-sm-2">
-                <label>Valor</label>
-                <input
-                    name="value"
-                    type="text"
-                    onChange={e => { this.handleInputChange(e); }}
-                    value={this.state.value}
-                    className="form-control" />
-            </div>
+            <section style={{
+                display: "flex",
+                flexDirection: "row"
+            }}>
 
-            <div className="col-sm-6">
-                <label>Filtro</label>
-                <div>
-                    <button className="btn btn-primary"
-                        type="submit"
-                    >Filtrar
+                <div className="field horizontal">
+                    <label>Campo</label>
+                    <select
+                        value={this.state.property}
+                        name="property"
+                        className="form-control"
+                        onChange={e => { this.handleInputChange(e); }}>
+                        <option value="ANY">Todos</option>
+                        {props}
+                    </select>
+                </div>
+
+                <div className="field horizontal">
+                    <label>Operador</label>
+                    <select
+                        value={this.state.operator.symbol}
+                        name="operator"
+                        className="form-control"
+                        onChange={e => { this.handleInputChange(e); }}>
+                        {operators}
+                    </select>
+                </div>
+
+                <div className="field horizontal">
+                    <label>Valor</label>
+                    <input
+                        name="value"
+                        type="text"
+                        onChange={e => { this.handleInputChange(e); }}
+                        value={this.state.value}
+                        className="form-control" />
+                </div>
+
+
+
+            </section>
+
+            <footer>
+
+                <button className="btn btn-primary"
+                    type="submit"
+                >Filtrar
                 </button>
-                    <div className="btn btn-default"
-                        onClick={e => { this.props.onClearFilter() }}>Limpar Filtro
+                <div className="btn btn-default"
+                    onClick={e => { this.props.onClearFilter() }}>Limpar Filtro
                 </div>
-                </div>
-            </div>
+
+            </footer>
 
         </form>
 

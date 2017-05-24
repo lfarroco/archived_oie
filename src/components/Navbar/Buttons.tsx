@@ -70,22 +70,24 @@ export const NavBarButtons: any = {
 
             }
         },
-    },
-    rightButtons: {
+        "Administração": {
+            icon: "education",
+            children: {
+                "Telas": {
+                    target: "screens/create-screen",
+                    icon: "list-alt"
+                },
+                "Rotas": {
+                    target: "routes/add",
+                    icon: "share"
+                },
+                "Taxonomias": {
+                    target: "taxonomies/add",
+                    icon: "list-th"
+                }
 
-        "Telas": {
-            target: "screens/list",
-            icon: "list-alt"
+            }
         },
-        "Rotas": {
-            target: "routes/add",
-            icon: "share"
-        },
-        "Taxonomias": {
-            target: "taxonomies/add",
-            icon: "list-th"
-        }
-
     }
 
 };

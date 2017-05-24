@@ -6,12 +6,23 @@ interface NavBarProps {
     onLinkClick: Function;
     projectName: string;
 }
+interface NavbarState {
+    selected: string;
+}
 
-export class Navbar extends React.Component<NavBarProps, undefined> {
+export class Navbar extends React.Component<NavBarProps, NavbarState> {
+
+    constructor(props: NavBarProps) {
+
+        super(props);
+
+        this.state = { selected: '' }
+
+    }
 
     render() {
 
-        let leftButtons = Object.keys(NavBarButtons.leftButtons).map((parentKey, index) => {
+        let buttons = Object.keys(NavBarButtons.leftButtons).map((parentKey, index) => {
 
             let button: any = NavBarButtons.leftButtons[parentKey];
 
@@ -19,71 +30,42 @@ export class Navbar extends React.Component<NavBarProps, undefined> {
 
                 let child = button.children[childKey];
 
+                let isSelected = childKey === this.state.selected ? true : false;
+
                 return <li key={index}>
                     <NavbarButton
                         target={child.target}
+                        isSelected={isSelected}
                         label={childKey}
-                        onClick={(target: string) => { this.handleLinkClick(target) }}
+                        onClick={(target: string) => {
+                            this.setState({ selected: childKey })
+                            this.handleLinkClick(target)
+                        }}
                         icon={child.icon} />
                 </li>
 
             });
 
             return <li key={index}>
-                <a href="#"
-                    className="dropdown-toggle"
-                    data-toggle="dropdown">
-                    <span className={"glyphicon glyphicon-" + button.icon}></span> {parentKey}
-                    <span className="caret"></span>
-                </a>
-                <ul className="dropdown-menu">{children}</ul>
-            </li>
+
+                <h4>{parentKey}</h4> <ul>{children}</ul> </li>
 
         });
 
-        let rightButtons = Object.keys(NavBarButtons.rightButtons).map((key, index) => {
+        return <div className="sidebar">
 
-            let button = NavBarButtons.rightButtons[key];
+            <ul className="list">
 
-            return <li key={index}>
-                <NavbarButton
-                    target={button.target}
-                    label={key}
-                    onClick={(target: string) => { this.handleLinkClick(target) }}
-                    icon={button.icon} />
-            </li>
+                {buttons}
 
-        });
+            </ul>
 
-        return <nav className="navbar navbar-default">
-            <div className="container">
-                <div className="navbar-header">
-                    <button type="button" className="navbar-toggle collapsed"
-                        data-toggle="collapse" data-target="#navbar">
-                        <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                    </button>
-                    <a className="navbar-brand"
-                        href="#/">{this.props.projectName}</a>
-                </div>
-                <div id="navbar" className="navbar-collapse collapse">
-                    <ul className="nav navbar-nav">
-
-                        {leftButtons}
-
-                    </ul>
-
-                    <ul className="nav navbar-nav navbar-right">
-                        {rightButtons}
-                    </ul>
-                </div>
-            </div>
-        </nav>;
+        </div>
+            ;
     }
 
     handleLinkClick(e: string) {
+
 
         this.props.onLinkClick(e);
 

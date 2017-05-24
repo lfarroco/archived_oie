@@ -52,17 +52,13 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
 
     }
 
-
-
     render() {
-
-
 
         let toolbar = this.renderToolbar();
 
         let block;
 
-        if (this.props.route.page === 'create-page') {
+        if (this.props.route.page === 'create-screen') {
 
             block = <BlockEditor />
 
@@ -75,8 +71,6 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
         }
 
         return <div>
-
-            <h4>{this.props.taxonomy.namePlural}</h4>
 
             {toolbar}
 
@@ -221,6 +215,7 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
         return <ItemProfile
             item={this.state.selectedItem}
             fields={this.props.taxonomy.fields}
+            taxonomy={this.props.taxonomy}
             onChange={(t: Item) => {
 
                 this.handleInputChange(t);

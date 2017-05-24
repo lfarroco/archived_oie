@@ -6,6 +6,7 @@ import { Item } from "./Taxonomy";
 
 interface ItemProfileProps {
     item: Item;
+    taxonomy: Item;
     fields: ItemFieldsCollection;
     onChange: Function;
     onSubmit: Function;
@@ -19,6 +20,7 @@ export class ItemProfile extends React.Component<ItemProfileProps, undefined> {
 
         return <GenericForm
             item={this.props.item}
+            title={this.props.taxonomy.name}
             fields={this.props.fields}
             onSubmit={(item: any) => { this.props.onSubmit(item) }} />
 

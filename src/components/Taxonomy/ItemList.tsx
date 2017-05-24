@@ -62,13 +62,19 @@ export class ItemList extends React.Component<ItemListProps, undefined> {
 
 		});
 
-		return <table className="table">
+		return <div className="panel">
+			<header><h4>{this.props.taxonomy.namePlural}</h4></header>
+			<section>
+				<table className="table">
 
-			<thead><tr>{head}<th></th></tr></thead>
+					<thead><tr>{head}<th></th></tr></thead>
 
-			<tbody>{list}</tbody>
+					<tbody>{list}</tbody>
 
-		</table>
+				</table>
+			</section>
+
+		</div>
 
 	}
 }

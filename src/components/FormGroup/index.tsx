@@ -51,22 +51,20 @@ export class FormGroup extends React.Component<FormGroupProps, undefined> {
                 type={this.props.type || "text"}
                 value={this.props.value || ""}
                 name={this.props.name}
-                className="form-control"
                 onChange={(e: any) => {
 
                     this.props.onChange(e)
 
                 }} />;
 
-        return <div className={this.props.cols || "col-sm-12"}>
-            <div className="form-group">
+        return <div className="field">
 
                 <label>{this.props.label}</label>
 
                 {input}
 
             </div>
-        </div>
+        
 
     }
 

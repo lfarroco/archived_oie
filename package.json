@@ -22,7 +22,8 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "typeface-ubuntu": "0.0.22"
   },
   "devDependencies": {
     "@types/jest": "^19.2.3",

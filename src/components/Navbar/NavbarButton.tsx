@@ -5,26 +5,29 @@ interface NavBarProps {
     onClick: Function;
     icon: string;
     label: string;
+    isSelected: boolean;
 }
 
 export class NavbarButton extends React.Component<NavBarProps, undefined> {
 
     render() {
 
+        let selectedClass = this.props.isSelected ? 'selected' : '';
+
         return <a
             href={"#" + this.props.target}
+            className={selectedClass}
             onClick={(e) => {
                 e.preventDefault();
-                this.onClick(e, this.props.target);
+                this.onClick(this.props.target);
             }}>
             <span className={"glyphicon glyphicon-" + this.props.icon}></span> {this.props.label}
         </a>
 
     }
 
-    onClick(e: React.MouseEvent<HTMLAnchorElement>, target: string) {
+    onClick(target: string) {
 
-        e.preventDefault();
         this.props.onClick(target);
     }
 

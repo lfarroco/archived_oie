@@ -22,25 +22,23 @@ export class TaxonomyToolbar extends React.Component<TaxonomyToolbarProps, undef
         let registerButton = this.registerButton();
         let listButton = this.listButton();
 
-        return <div>
+        let filterForm = <FilterForm
+            taxonomy={this.props.taxonomy}
+            onFilter={(filter: FilterFormState) => {
 
-            <div>
-                {registerButton}
+                this.props.onFilter(filter)
+            }}
+            onClearFilter={() => {
+                this.props.onClearFilter();
+            }
+            }
+        />
 
-                {listButton}
-            </div>
+        return <div className="toolbar">
 
-            <FilterForm
-                taxonomy={this.props.taxonomy}
-                onFilter={(filter: FilterFormState) => {
+            {registerButton}
 
-                    this.props.onFilter(filter)
-                }}
-                onClearFilter={() => {
-                    this.props.onClearFilter();
-                }
-                }
-            />
+            {listButton}
 
         </div>
 

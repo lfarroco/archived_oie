@@ -1,0 +1,165 @@
+body{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;    
+    padding:0;
+    margin: 0;
+}
+.app-bar{
+    background: none repeat scroll 0% 0% rgba(4, 48, 86, 1);
+    padding: 10px;    
+    box-shadow: 0 2px 2px #ccc;
+    color: #fff;
+}
+
+.app-container{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;     
+    
+}
+
+.sidebar{
+    
+     background: none repeat scroll 0% 0% rgba(0, 6, 50, 1);
+}
+
+.container{
+    padding: 10px;    
+    flex: 1; 
+}
+.sidebar h4{
+    margin: 20px 10px 0;
+}
+ 
+ul, li{
+    list-style: none;
+    margin:0;
+    padding: 0;    
+    
+}
+ul.list{
+    margin: 20px 0;
+    color:#fff;    
+}
+
+ul.list a{
+    border-bottom: #ccc solid 1px;
+    display: block;
+    padding: 10px;
+    transition: background 1s;
+}
+ul.list li:last-child a{
+    border-bottom: none;
+}
+ul.list a, ul.list a:visited{
+    text-decoration: none;
+    color:#fff;    
+}
+ul.list a:hover, ul.list a.selected{
+    background: none repeat scroll 0% 0% rgba(32, 42, 116, 1);
+}
+.panel{
+    
+    box-shadow: 2px 3px 5px #aaa;
+    background: #fff;    
+}
+.panel header{
+    background: none repeat scroll 0% 0% rgba(60, 70, 146, 1);
+    color: #fff;
+    padding: 10px;    
+}
+.panel header h4{
+    margin:0;
+}
+.panel section{
+    padding: 10px;
+}
+.panel footer{
+    background: rgba(245, 245, 245, 1);;
+    color: #fff;
+      padding: 10px;
+}
+form{
+    font-size: 14px;
+}
+
+form .field{
+    margin: 30px 0;
+    
+}
+form .field label{        
+    display: inline-block;
+}
+form .field.horizontal label{        
+    display: inline;
+}
+form .field input{
+    border:none;
+    margin:0;
+    border-bottom: #ccc solid 1px;
+    display: block;
+    padding:5px 0;
+    width:100%;
+    font-size: 14px;
+    height: 30px;
+}
+form .field.horizontal input{        
+    display: inline;
+     width:auto;
+}
+
+form input, form select,form button{
+    border-bottom: #ccc solid 1px;
+    padding: 5px;
+}
+
+table{
+    background: #fff;
+    margin: 10px 0;    
+    width:100%;
+}
+table thead th{
+    padding: 0 0 10px 0;
+    border-bottom: #ccc solid 1px;
+}
+table td{
+    padding: 10px;
+}
+table tbody tr:hover{
+    background: #efefef;
+    cursor:pointer;
+}
+
+.btn,input[type="submit"],select{
+    padding: 10px;
+    background: #fff;
+    display: inline;
+    margin-right: 5px;    
+    border:none;    
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    box-shadow: 0px 2px 2px #999;
+    cursor: pointer;
+    color:#000;
+    transition: all 1s;
+} 
+
+.btn:hover{
+    background: #efefef;
+}
+.btn-info, input.btn-info{
+    background: none repeat scroll 0% 0% rgba(12, 104, 173, 1);
+    color: #fff;
+}
+
+.error-msg{
+    border: red solid 1px;
+    padding:15px;
+    background: pink;    
+    max-height: 30px;
+}
+
+.toolbar{
+    margin: 20px 0;
+}

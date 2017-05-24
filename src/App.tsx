@@ -41,21 +41,29 @@ export class App extends React.Component<undefined, AppState> {
     render() {
         return <div>
 
-            <Navbar
-                onLinkClick={(route: string) => {
-                    this.switchRoute(route)
-                }}
-                projectName="dalva"
-            />
-            <Content
-                route={this.state.route}
-                taxonomies={this.state.taxonomies}
-                onChangeRoute={(r: RouteParams) => {
-                    this.handleChangeRoute(r);
-                }}
-            />
+            <div className="app-bar">
 
-        </div>
+                oie
+
+            </div>
+
+            <div className="app-container">
+
+                <Navbar
+                    onLinkClick={(route: string) => {
+                        this.switchRoute(route)
+                    }}
+                    projectName="dalva"
+                />
+                <Content
+                    route={this.state.route}
+                    taxonomies={this.state.taxonomies}
+                    onChangeRoute={(r: RouteParams) => {
+                        this.handleChangeRoute(r);
+                    }}
+                />
+
+            </div></div>
     }
 
     switchRoute(route: string) {
