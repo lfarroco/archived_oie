@@ -11,8 +11,7 @@ import { TaxonomyToolbar } from "./TaxonomyToolbar"
 import { Item } from "./Taxonomy";
 
 import { filterOptions } from "../Filter/filterItemCollection";
-
-
+import { BlockEditor } from "../Block/BlockEditor";
 
 interface TaxonomyContainerProps {
     taxonomy: Item;
@@ -25,6 +24,9 @@ interface TaxonomyContainerState {
     filter: filterOptions;
     selectedItem: Item;
 }
+
+
+
 
 export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, TaxonomyContainerState> {
 
@@ -54,13 +56,17 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
 
     render() {
 
-        console.log('container re-rendering')
+
 
         let toolbar = this.renderToolbar();
 
         let block;
 
-        if (this.props.route.page === 'list') {
+        if (this.props.route.page === 'create-page') {
+
+            block = <BlockEditor />
+
+        } else if (this.props.route.page === 'list') {
             block = this.renderItemList();
         } else if (this.props.route.page === 'view') {
             block = this.renderItemProfile();

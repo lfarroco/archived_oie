@@ -25,6 +25,8 @@ export class Content extends React.Component<ContentProps, undefined>{
 
         let taxonomy = this.props.taxonomies[this.props.route.taxonomy];
 
+        console.log(this.props.taxonomies, this.props.route.taxonomy)
+
         if (!taxonomy) {
             return <div className="container alert alert-danger">
                 <strong>Erro!</strong> Url inválida.
