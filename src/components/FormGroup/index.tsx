@@ -19,7 +19,6 @@ export class FormGroup extends React.Component<FormGroupProps, undefined> {
     render() {
 
         let input;
-        console.log('received type:', this.props.type)
 
         if (this.props.type == 'fieldEditor') {
 
@@ -59,12 +58,12 @@ export class FormGroup extends React.Component<FormGroupProps, undefined> {
 
         return <div className="field">
 
-                <label>{this.props.label}</label>
+            <label>{this.props.label}</label>
 
-                {input}
+            {input}
 
-            </div>
-        
+        </div>
+
 
     }
 

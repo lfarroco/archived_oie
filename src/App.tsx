@@ -132,6 +132,7 @@ export class App extends React.Component<undefined, AppState> {
         taxonomies.lessons = DefaultTaxonomyMap.lessons;
         taxonomies.classes = DefaultTaxonomyMap.classes;
         taxonomies.disciplines = DefaultTaxonomyMap.disciplines;
+        taxonomies.clients = DefaultTaxonomyMap.clients;
 
         return taxonomies;
     }

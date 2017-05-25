@@ -22,10 +22,7 @@ interface TaxonomyContainerProps {
 interface TaxonomyContainerState {
     items: ItemCollection;
     filter: filterOptions;
-    selectedItem: Item;
 }
-
-
 
 
 export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, TaxonomyContainerState> {
@@ -41,13 +38,9 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
         if (this.props.route.key)
             selectedItem = items[this.props.route.key];
 
-        if (typeof selectedItem === 'undefined')
-            selectedItem = new Item();
-
         this.state = {
             items: items,
-            filter: undefined,
-            selectedItem: selectedItem
+            filter: undefined
         };
 
     }
@@ -65,9 +58,15 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
         } else if (this.props.route.page === 'list') {
             block = this.renderItemList();
         } else if (this.props.route.page === 'view') {
-            block = this.renderItemProfile();
+
+            let item = JSON.parse(JSON.stringify(this.state.items[this.props.route.key]))
+            block = this.viewItemProfile(item);
+
         } else if (this.props.route.page === 'add') {
-            block = this.renderItemProfile();
+
+            let item = new Item()
+            block = this.viewItemProfile(item);
+
         }
 
         return <div>
@@ -101,35 +100,19 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
 
     }
 
-    handleInputChange(event: any) {
-
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name: string = target.name;
-
-        let item = this.state.selectedItem;
-
-        let clone = JSON.parse(JSON.stringify(item))
-        clone[name] = value;
-
-        this.setState({
-            selectedItem: clone
-        })
-
-    }
-
     saveItem(item: Item) {
+
+        console.log('saving item with key', item.key)
 
         var items = JSON.parse(JSON.stringify(this.state.items))
 
-        items[this.state.selectedItem.key] = item;
+        items[item.key] = item;
+
+        this.saveItemsToDB(items);
 
         this.setState({
-            items: items,
-            selectedItem: new Item()
+            items: items
         });
-
-        this.saveItems(items);
 
         this.changeRoute({
             page: "list",
@@ -148,21 +131,16 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
 
         if (nextProps.route.page === "add") {
             console.log('will add a new guy')
-            this.setState({
-                selectedItem: new Item()
-            });
         }
 
         if (this.props.taxonomy.key !== nextProps.taxonomy.key) {
             console.log('the taxonomy has changed!!!')
             this.setState({
                 items: this.getTaxonomyItems(nextProps.taxonomy.key),
-                filter: undefined,
-                selectedItem: new Item()
+                filter: undefined
             });
 
         }
-
 
     }
 
@@ -174,11 +152,12 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
 
         this.setState({ items: items });
 
-        this.saveItems(items);
+        this.saveItemsToDB(items);
 
     }
 
-    saveItems(items: ItemCollection) {
+    saveItemsToDB(items: ItemCollection) {
+
         var json = JSON.stringify(items);
 
         localStorage.setItem(this.props.taxonomy.key, json);
@@ -196,8 +175,6 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
             }}
             onClick={(item: Item) => {
 
-                this.setState({ selectedItem: item });
-
                 this.changeRoute(
                     {
                         taxonomy: this.props.taxonomy.slug,
@@ -210,20 +187,15 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
         />
     }
 
-    renderItemProfile() {
+
+    viewItemProfile(item: Item) {
 
         return <ItemProfile
-            item={this.state.selectedItem}
-            fields={this.props.taxonomy.fields}
+            item={item}
             taxonomy={this.props.taxonomy}
-            onChange={(t: Item) => {
+            onSubmit={(item: Item) => {
 
-                this.handleInputChange(t);
-
-            }}
-            onSubmit={(t: Item) => {
-
-                this.saveItem(t);
+                this.saveItem(item);
 
             }} />
 
@@ -236,7 +208,10 @@ export class TaxonomyContainer extends React.Component<TaxonomyContainerProps, T
             taxonomy={this.props.taxonomy}
             route={this.props.route}
             onaddClick={() => {
-                this.setState({ selectedItem: new Item() })
+                this.changeRoute({
+                    page: 'add',
+                    taxonomy: this.props.route.taxonomy
+                })
             }}
             onFilter={(filter: filterOptions) => {
                 this.setState({

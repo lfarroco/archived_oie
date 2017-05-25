@@ -6,10 +6,9 @@ import { ItemFieldsCollection } from "../Taxonomy/TaxonomyItem";
 import { Item } from "../Taxonomy/Taxonomy";
 
 export interface GenericFormProps {
+    taxonomy: Item;
     item: Item;
     onSubmit: Function;
-    fields: ItemFieldsCollection;
-    title: string;
 }
 
 export class GenericForm extends React.Component<GenericFormProps, Item> {
@@ -35,11 +34,9 @@ export class GenericForm extends React.Component<GenericFormProps, Item> {
 
     render() {
 
-        const formGroupItems = Object.keys(this.props.fields).map((key, index) => {
+        const formGroupItems = Object.keys(this.props.taxonomy.fields).map((key, index) => {
 
-            let field = this.props.fields[key];
-
-            console.log('creating field:', field);
+            let field = this.props.taxonomy.fields[key];
 
             return <FormGroup
                 key={index}
@@ -71,7 +68,7 @@ export class GenericForm extends React.Component<GenericFormProps, Item> {
             }}>
 
             <header>
-                <h4>Cadastrar {this.props.title}</h4>
+                <h4>Cadastrar {this.props.taxonomy.name}</h4>
             </header>
 
             <section>

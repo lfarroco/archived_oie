@@ -57,11 +57,6 @@ export class TaxonomyToolbar extends React.Component<TaxonomyToolbarProps, undef
         return <div className="btn btn-success"
             onClick={e => {
 
-                this.changeRoute({
-                    page: 'add',
-                    taxonomy: this.props.route.taxonomy
-                })
-
                 this.props.onaddClick();
 
             }}>
