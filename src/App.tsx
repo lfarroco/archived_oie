@@ -30,10 +30,12 @@ export class App extends React.Component<undefined, AppState> {
             if (ev.newURL.indexOf("#") > -1) {
 
                 let str = ev.newURL.split('#')[1];
+                let routeParams = parseRoute(str);
 
-                this.switchRoute(str);
+                this.setState({ route: routeParams });
 
             }
+
         }//onHashChange
 
     }
@@ -68,19 +70,15 @@ export class App extends React.Component<undefined, AppState> {
 
     switchRoute(route: string) {
 
-        console.log('clicked on ', route)
-
         location.hash = "#" + route;
 
-        let routeParams = parseRoute(route);
-
-        this.setState({ route: routeParams });
+        //initiates window.onhashchange, defined in this class' constructor
 
     }
 
     handleChangeRoute(route: RouteParams) {
 
-        console.log('route:', route);
+        console.log('request to change route to:', route);
 
         var str = route.taxonomy;
 
