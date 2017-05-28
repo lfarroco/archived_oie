@@ -7,7 +7,7 @@ import { Item } from "../Taxonomy/Taxonomy";
 
 export interface GenericFormProps {
     taxonomy: Item;
-    item: Item;
+    data: Item;
     onSubmit: Function;
 }
 
@@ -16,7 +16,7 @@ export class GenericForm extends React.Component<GenericFormProps, Item> {
     constructor(props: GenericFormProps) {
         super(props);
 
-        let item: Item = JSON.parse(JSON.stringify(this.props.item));
+        let item: Item = JSON.parse(JSON.stringify(this.props.data));
 
         let state: Item = new Item();
 
@@ -133,7 +133,7 @@ export class GenericForm extends React.Component<GenericFormProps, Item> {
     componentWillReceiveProps(nextProps: GenericFormProps) {
 
         this.setState({
-            item: nextProps.item
+            item: nextProps.data
         });
     }
 

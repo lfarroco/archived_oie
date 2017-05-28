@@ -1,6 +1,6 @@
 export const NavBarButtons: any = {
     leftButtons: {
-        "Alunos": {
+        "👤 Alunos": {
             icon: "user",
             children: {
                 "Listar Alunos": {
@@ -14,7 +14,7 @@ export const NavBarButtons: any = {
 
             }
         },
-        "Funcionários": {
+        "👤 Funcionários": {
             icon: "user",
             children: {
                 "Listar Funcionários": {
@@ -28,7 +28,7 @@ export const NavBarButtons: any = {
 
             }
         },
-        "Aulas": {
+        "📅 Aulas": {
             icon: "calendar",
             children: {
                 "Listar Aulas": {
@@ -42,7 +42,7 @@ export const NavBarButtons: any = {
 
             }
         },
-        "Turmas": {
+        "💼 Turmas": {
             icon: "education",
             children: {
                 "Listar Turmas": {
@@ -56,7 +56,7 @@ export const NavBarButtons: any = {
 
             }
         },
-        "Matérias": {
+        "🎓 Matérias": {
             icon: "education",
             children: {
                 "Listar Matérias": {

@@ -117,3 +117,77 @@ export const DefaultTaxonomyMap: TaxonomyMap = {
     routes: routesTaxonomy
 
 };
+
+interface PageMap {
+    [key: string]: PageConfig;
+}
+
+export interface PageConfig {
+    title: string;
+    /**
+   * The data mode for this component
+   * Single: a single item is displayed (will fetch a key from the route to get the item)
+   * All: all items for the taxonomy are displayed
+   * Data is fetched in the PageContainer and then supplied to the presentional component
+   */
+    dataType: "single" | "all";
+    components: ComponentMap;
+
+}
+
+export interface ComponentMap {
+    [key: string]: ComponentOptions;
+}
+
+export interface ComponentOptions {
+    key: string;
+
+    /**
+     * The title of the component
+     * It is possible to use %name% or %namePlural% to display the name of the taxonomy
+     */
+    title: string;
+
+    filter?: any;
+    onClick?: string;
+    onSubmit?: string;
+    onDelete?: string;
+}
+
+export const PAGES: PageMap = {
+
+    "list": {
+        title: "Listar %namePlural%",
+        dataType: "all",
+        components: {
+            "list": {
+                key: "list",
+                title: "Lista",
+                onClick: "view",
+                onDelete: "delete"
+            }
+        }
+    },
+    "view": {
+        title: "Ver %namePlural%",
+        dataType: "single",
+        components: {
+            "view": {
+                key: "view",
+                title: "Ver",
+                onSubmit: "update"
+            }
+        }
+    },
+    "add": {
+        title: "Cadastrar %namePlural%",
+        dataType: "single",
+        components: {
+            "add": {
+                key: "add",
+                title: "Cadastrar",
+                onSubmit: "add"
+            }
+        }
+    }
+}

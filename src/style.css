@@ -5,10 +5,11 @@ body{
     margin: 0;
 }
 .app-bar{
-    background: none repeat scroll 0% 0% rgba(4, 48, 86, 1);
+    background: #242424;
     padding: 10px;    
     box-shadow: 0 2px 2px #ccc;
     color: #fff;
+    border-bottom:#666 solid 1px;
 }
 
 .app-container{
@@ -114,7 +115,6 @@ form input, form select,form button{
 }
 
 table{
-    background: #fff;
     margin: 10px 0;    
     width:100%;
 }

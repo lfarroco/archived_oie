@@ -2,10 +2,8 @@ import * as React from "react";
 
 import { ItemCollection } from "./TaxonomyItem";
 import { ItemListDetails } from "./ItemListDetails";
-import { TaxonomyContainer } from "../Taxonomy/TaxonomyContainer";
 import { Item } from "./Taxonomy";
 import { filterOptions, filter, filterAnyProp } from "../Filter/filterItemCollection";
-
 
 interface ItemListProps {
 	items: ItemCollection;
@@ -54,8 +52,8 @@ export class ItemList extends React.Component<ItemListProps, undefined> {
 					key={key}
 					item={item}
 					listFields={listFields}
-					onClick={(e: any) => { this.props.onClick(item) }}
-					onDeleteItem={() => { this.props.onDelete(item) }}
+					onClick={(e: any) => { if (this.props.onClick) this.props.onClick(item) }}
+					onDeleteItem={() => { if (this.props.onDelete) this.props.onDelete(item) }}
 				/>
 
 			}

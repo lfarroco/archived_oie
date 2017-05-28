@@ -1,3 +1,5 @@
+import { Item } from "../Taxonomy/Taxonomy";
+
 export interface filterOptions {
     property: string;
     value: string;
@@ -15,7 +17,15 @@ export interface FilterCollection {
 
 let symbols = [">", "<", "===", ">=", "<=", "CONTAINS"];
 
-export function filter(item: any, filterOptions: filterOptions) {
+/**
+ * Function filter
+ * Compares an item with a condition
+ * Return true if conditions are met, else returns false
+ * @param item 
+ * @param filterOptions 
+ */
+
+export function filter(item: Item, filterOptions: filterOptions) {
 
     if (filterOptions.property === "ANY")
         return filterAnyProp(item, filterOptions);
