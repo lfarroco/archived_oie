@@ -1,4 +1,5 @@
 import { ItemCollection, ItemFieldsCollection } from "./TaxonomyItem"
+import { TaxonomyMap } from "../../constants";
 
 export class Item {
     [index: string]: any;
@@ -8,6 +9,7 @@ export class Item {
     namePlural: string;
     fields: ItemFieldsCollection;
     filters?: any;
+    items: TaxonomyMap;
     constructor() {
 
         let dateTime = new Date().getTime();

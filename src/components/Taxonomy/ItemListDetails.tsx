@@ -30,18 +30,6 @@ export class ItemListDetails extends React.Component<ItemListDetailsProps, undef
 
             {listFields}
 
-            <td width="1">
-
-                <span className="btn pull-right"
-                    onClick={(e) => {
-                        this.props.onDeleteItem(e)
-                    }}
-                >
-                    Remover
-                </span>
-
-            </td>
-
         </tr>
 
     }

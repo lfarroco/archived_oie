@@ -25,6 +25,8 @@ export class Page extends React.Component<PageProps, undefined> {
 
     render() {
 
+        console.log('Page - this.props:', this.props)
+
         let components = Object.keys(this.props.components).map((key, index) => {
 
             let componentOptions = this.props.components[key];

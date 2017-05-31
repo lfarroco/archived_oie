@@ -78,11 +78,11 @@ export const NavBarButtons: any = {
                     icon: "list-alt"
                 },
                 "Rotas": {
-                    target: "routes/add",
+                    target: "routes/list",
                     icon: "share"
                 },
                 "Taxonomias": {
-                    target: "taxonomies/add",
+                    target: "taxonomies/list",
                     icon: "list-th"
                 }
 

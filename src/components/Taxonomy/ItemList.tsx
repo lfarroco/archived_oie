@@ -19,7 +19,7 @@ export class ItemList extends React.Component<ItemListProps, undefined> {
 
 		let listFields: any = {};
 
-		console.log('this.props.taxonomy:', this.props.taxonomy)
+		console.log('ItemList - this.props.taxonomy:', this.props.taxonomy)
 
 		if (this.props.taxonomy.key === "dalva_taxonomies") {
 			listFields = { "name": true, "namePlural": true, "slug": true };

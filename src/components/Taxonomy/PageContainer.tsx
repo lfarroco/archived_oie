@@ -1,9 +1,7 @@
 import * as React from "react";
 
 import { ItemCollection, ItemFieldsCollection } from "./TaxonomyItem"
-import { ItemList } from "./ItemList"
-import { ItemListDetails } from "./ItemListDetails"
-import { ItemProfile } from "./ItemProfile";
+
 import { ItemFields } from "./ItemFields";
 import { RouteParams } from "../Routes";
 
@@ -15,6 +13,7 @@ import { BlockEditor } from "../Block/BlockEditor";
 
 import { Page } from "../Page/Page"
 import { PAGES, PageConfig } from "../../constants";
+import { oieStore } from "../../store";
 
 interface TaxonomyContainerProps {
     taxonomy: Item;
@@ -36,8 +35,12 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
 
         super(props);
 
+        let taxonomySlug = this.props.taxonomy ? this.props.taxonomy.slug : "clients";
+
+        console.log('****', taxonomySlug, this.props.pageOptions.dataType);
+
         this.state = {
-            data: this.getPageData(this.props.taxonomy.key, this.props.pageOptions.dataType),
+            data: this.getPageData(taxonomySlug, this.props.pageOptions.dataType, this.props.route.key),
             filter: undefined
         };
 
@@ -48,6 +51,8 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
         let pageTitle = this.props.pageOptions.title
             .replace('%name%', this.props.taxonomy.name)
             .replace('%namePlural%', this.props.taxonomy.namePlural);
+
+        console.log('pageTitle is', pageTitle)
 
         return <Page
             taxonomy={this.props.taxonomy}
@@ -65,7 +70,7 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
     addItem(item: Item) {
 
         this.saveItem(item);
-        this.changeRoute({ page: "list", taxonomy: this.props.taxonomy.slug })
+        //this.changeRoute({ page: "list", taxonomy: this.props.taxonomy.slug })
 
     }
     updateItem(item: Item) {
@@ -94,22 +99,17 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
         let localData: string;
         let result: ItemCollection | Item;
 
-        localData = localStorage.getItem(taxonomyKey);
+        console.log(oieStore.getState(), taxonomyKey)
 
-        console.log('local data is ', JSON.parse(localData))
-
-        if (!localData)
-            data = {};
-        else
-            data = JSON.parse(localData);
-
+        let taxonomy = oieStore.getState().taxonomies[taxonomyKey];
+        console.log('getting page data...')
 
         switch (dataType) {
             case "single":
-                result = data[itemKey]
+                result = taxonomy.items[itemKey]
                 break;
             case "all":
-                result = data;
+                result = taxonomy.items;
                 break;
             default:
                 result = {};
@@ -122,19 +122,12 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
 
     saveItem(item: Item) {
 
-        console.log('saving item with key', item.key)
-
-        let data;
-
-        data = JSON.parse(localStorage.getItem(this.props.taxonomy.key))
-
-        data[item.key] = item;
-
-        this.saveItemsToDB(data);
-
-        this.setState({
-            data: data
-        });
+        oieStore.dispatch({
+            type: "CREATE_ITEM",
+            taxonomy: this.props.taxonomy,
+            item: item,
+            nextPage: "list"
+        })
 
     }
 
@@ -156,7 +149,7 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
             let itemKey = nextProps.route.key;
 
             this.state = {
-                data: this.getPageData(nextProps.taxonomy.key, nextProps.pageOptions.dataType, itemKey),
+                data: this.getPageData(nextProps.taxonomy.slug, nextProps.pageOptions.dataType, itemKey),
                 filter: undefined
             };
         }

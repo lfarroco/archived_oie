@@ -11,6 +11,10 @@ body{
     color: #fff;
     border-bottom:#666 solid 1px;
 }
+.app-bar h1{
+    margin:10px;
+    color: #fbec00;
+}
 
 .app-container{
     margin: 0 auto;
@@ -21,7 +25,7 @@ body{
 
 .sidebar{
     
-     background: none repeat scroll 0% 0% rgba(0, 6, 50, 1);
+     background: #323232;
 }
 
 .container{
@@ -29,7 +33,7 @@ body{
     flex: 1; 
 }
 .sidebar h4{
-    margin: 20px 10px 0;
+    margin: 20px 10px 5px;
 }
  
 ul, li{
@@ -44,20 +48,27 @@ ul.list{
 }
 
 ul.list a{
-    border-bottom: #ccc solid 1px;
+    border-top: #555 solid 1px;
+    box-shadow: 0px 1px 0px #353535;
     display: block;
     padding: 10px;
     transition: background 1s;
+    position:relative;
+    z-index:1;
 }
 ul.list li:last-child a{
-    border-bottom: none;
+    border-bottom: #555 solid 1px;
+
 }
+
 ul.list a, ul.list a:visited{
     text-decoration: none;
     color:#fff;    
 }
-ul.list a:hover, ul.list a.selected{
-    background: none repeat scroll 0% 0% rgba(32, 42, 116, 1);
+ul.list a:hover,ul.list a.selected{
+    background: #484848;
+    box-shadow: 0px 2px 4px #111,0px -2px 4px #111;    
+    z-index:2;
 }
 .panel{
     

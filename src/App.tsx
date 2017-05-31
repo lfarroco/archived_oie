@@ -2,50 +2,25 @@ import * as React from 'react';
 
 import { Navbar } from "./components/Navbar";
 import { Content } from "./components/Content";
-import { parseRoute, RouteParams } from "./components/Routes";
-import { TaxonomyMap, DefaultTaxonomyMap } from "./constants"
+import { RouteParams } from "./components/Routes";
 import { ItemCollection } from "./components/Taxonomy/TaxonomyItem";
+import { Item } from "./components/Taxonomy/Taxonomy";
+import { AppContainerState } from "./index";
+import { oieStore } from "./store";
 
-interface AppState {
+interface AppProps {
+    taxonomy: Item;
     route: RouteParams;
-    taxonomies: TaxonomyMap;
 }
 
-export class App extends React.Component<undefined, AppState> {
-
-    constructor(props: any) {
-        super(props);
-
-        let route = parseRoute();
-
-        let taxonomies = this.loadTaxonomies();
-
-        this.state = {
-            route: route,
-            taxonomies: taxonomies
-        };
-
-        window.onhashchange = (ev) => {
-
-            if (ev.newURL.indexOf("#") > -1) {
-
-                let str = ev.newURL.split('#')[1];
-                let routeParams = parseRoute(str);
-
-                this.setState({ route: routeParams });
-
-            }
-
-        }//onHashChange
-
-    }
+export class App extends React.Component<AppProps, undefined> {
 
     render() {
         return <div>
 
             <div className="app-bar">
 
-                oie
+                <h1>oie</h1>
 
             </div>
 
@@ -58,8 +33,8 @@ export class App extends React.Component<undefined, AppState> {
                     projectName="dalva"
                 />
                 <Content
-                    route={this.state.route}
-                    taxonomies={this.state.taxonomies}
+                    route={this.props.route}
+                    taxonomy={this.props.taxonomy}
                     onChangeRoute={(r: RouteParams) => {
                         this.handleChangeRoute(r);
                     }}
@@ -71,6 +46,8 @@ export class App extends React.Component<undefined, AppState> {
     switchRoute(route: string) {
 
         location.hash = "#" + route;
+
+
 
         //initiates window.onhashchange, defined in this class' constructor
 
@@ -91,47 +68,14 @@ export class App extends React.Component<undefined, AppState> {
             }
         }
 
+        oieStore.dispatch({
+            type: "CHANGE_ROUTE",
+            route: route
+        });
+
         this.switchRoute(str)
     }
 
-    parseTaxonomies(taxonomies: ItemCollection) {
 
-        let taxonomyMap: TaxonomyMap = {};
 
-        Object.keys(taxonomies).map(key => {
-
-            let slug = taxonomies[key].slug;
-
-            taxonomyMap[slug] = taxonomies[key];
-
-        })
-
-        console.log(taxonomyMap);
-
-        return taxonomyMap;
-
-    }
-
-    loadTaxonomies() {
-
-        let taxonomies = JSON.parse(localStorage.getItem('dalva_taxonomies'));
-
-        if (!taxonomies) {
-            console.log('using default taxonomy map')
-            taxonomies = DefaultTaxonomyMap;
-        } {
-            console.log('parsing taxonomies')
-            taxonomies = this.parseTaxonomies(taxonomies);
-        }
-
-        taxonomies.taxonomies = DefaultTaxonomyMap.taxonomies;
-        taxonomies.routes = DefaultTaxonomyMap.routes;
-        taxonomies.employees = DefaultTaxonomyMap.employees;
-        taxonomies.lessons = DefaultTaxonomyMap.lessons;
-        taxonomies.classes = DefaultTaxonomyMap.classes;
-        taxonomies.disciplines = DefaultTaxonomyMap.disciplines;
-        taxonomies.clients = DefaultTaxonomyMap.clients;
-
-        return taxonomies;
-    }
 }

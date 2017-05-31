@@ -50,20 +50,25 @@ const routeFields: ItemFieldsCollection = {
     action: { label: "Action" }
 };
 
-const clientsTaxonomy: Item = {
+
+
+let clientsTaxonomy: Item = {
     key: "dalva_p",
     slug: "clients",
     name: "Aluno",
     namePlural: "Alunos",
-    fields: personFields
+    fields: personFields,
+    items: {}
 };
+
 
 const employeesTaxonomy: Item = {
     key: "dalva_e",
     slug: "employees",
     name: "Funcionário",
     namePlural: "Funcionários",
-    fields: personFields
+    fields: personFields,
+    items: {}
 };
 
 const lessonsTaxonomy: Item = {
@@ -71,7 +76,8 @@ const lessonsTaxonomy: Item = {
     slug: "lessons",
     name: "Aula",
     namePlural: "Aulas",
-    fields: lessonsFields
+    fields: lessonsFields,
+    items: {}
 };
 
 const classesTaxonomy: Item = {
@@ -79,7 +85,8 @@ const classesTaxonomy: Item = {
     slug: "classes",
     name: "Turma",
     namePlural: "Turmas",
-    fields: classesFields
+    fields: classesFields,
+    items: {}
 };
 
 const disciplineTaxonomy: Item = {
@@ -87,7 +94,8 @@ const disciplineTaxonomy: Item = {
     slug: "disciplines",
     name: "Matéria",
     namePlural: "Matérias",
-    fields: disciplineFields
+    fields: disciplineFields,
+    items: {}
 };
 
 const taxonomyTaxonomy: Item = {
@@ -95,7 +103,8 @@ const taxonomyTaxonomy: Item = {
     slug: "taxonomies",
     name: "Taxonomia",
     namePlural: "Taxonomias",
-    fields: taxonomyFields
+    fields: taxonomyFields,
+    items: {}
 };
 
 const routesTaxonomy: Item = {
@@ -103,10 +112,11 @@ const routesTaxonomy: Item = {
     slug: "routes",
     name: "Rota",
     namePlural: "Rotas",
-    fields: routeFields
+    fields: routeFields,
+    items: {}
 };
 
-export const DefaultTaxonomyMap: TaxonomyMap = {
+export const TAXONOMIES: TaxonomyMap = {
 
     clients: clientsTaxonomy,
     employees: employeesTaxonomy,
@@ -117,6 +127,19 @@ export const DefaultTaxonomyMap: TaxonomyMap = {
     routes: routesTaxonomy
 
 };
+
+Object.keys(TAXONOMIES).map((slug, index) => {
+
+    let taxonomy = TAXONOMIES[slug];
+
+    let localData = localStorage.getItem(taxonomy.key);
+
+    if (localData)
+        TAXONOMIES[slug] = JSON.parse(localData);
+    else
+        localStorage.setItem(taxonomy.key, JSON.stringify(taxonomy));
+
+});
 
 interface PageMap {
     [key: string]: PageConfig;

@@ -9,7 +9,7 @@ import { TaxonomyMap, PAGES } from "../../constants";
 
 interface ContentProps {
     route: RouteParams;
-    taxonomies: TaxonomyMap;
+    taxonomy: Item;
     onChangeRoute: Function;
 }
 
@@ -23,17 +23,9 @@ export class Content extends React.Component<ContentProps, undefined>{
 
     render() {
 
-        let taxonomy = this.props.taxonomies[this.props.route.taxonomy];
-
-        if (!taxonomy) {
-            return <div className="error-msg">
-                <strong>Erro!</strong> Url inválida.
-            </div>
-        }
-
         return <div className="container">
             <PageContainer
-                taxonomy={taxonomy}
+                taxonomy={this.props.taxonomy}
                 route={this.props.route}
                 pageOptions={PAGES[this.props.route.page]}
                 onChangeRoute={(r: RouteParams) => {
