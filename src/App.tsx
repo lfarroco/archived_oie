@@ -3,17 +3,12 @@ import * as React from 'react';
 import { Navbar } from "./components/Navbar";
 import { Content } from "./components/Content";
 import { RouteParams } from "./components/Routes";
-import { ItemCollection } from "./components/Taxonomy/TaxonomyItem";
+import { TaxonomyMap } from "./components/Taxonomy/TaxonomyItem";
 import { Item } from "./components/Taxonomy/Taxonomy";
-import { AppContainerState } from "./index";
 import { oieStore } from "./store";
+import { AppData } from "./index";
 
-interface AppProps {
-    taxonomy: Item;
-    route: RouteParams;
-}
-
-export class App extends React.Component<AppProps, undefined> {
+export class App extends React.Component<AppData, undefined> {
 
     render() {
         return <div>
@@ -46,8 +41,6 @@ export class App extends React.Component<AppProps, undefined> {
     switchRoute(route: string) {
 
         location.hash = "#" + route;
-
-
 
         //initiates window.onhashchange, defined in this class' constructor
 

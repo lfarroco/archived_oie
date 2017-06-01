@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import { ItemCollection } from "./TaxonomyItem";
+import { TaxonomyMap } from "./TaxonomyItem";
 import { ItemListDetails } from "./ItemListDetails";
 import { Item } from "./Taxonomy";
 import { filterOptions, filter, filterAnyProp } from "../Filter/filterItemCollection";
 
 interface ItemListProps {
-	items: ItemCollection;
+	items: TaxonomyMap;
 	taxonomy: Item;
 	filter: filterOptions;
 	onClick?: Function;

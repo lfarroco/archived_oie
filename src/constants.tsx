@@ -50,8 +50,6 @@ const routeFields: ItemFieldsCollection = {
     action: { label: "Action" }
 };
 
-
-
 let clientsTaxonomy: Item = {
     key: "dalva_p",
     slug: "clients",
@@ -60,7 +58,6 @@ let clientsTaxonomy: Item = {
     fields: personFields,
     items: {}
 };
-
 
 const employeesTaxonomy: Item = {
     key: "dalva_e",
@@ -98,15 +95,6 @@ const disciplineTaxonomy: Item = {
     items: {}
 };
 
-const taxonomyTaxonomy: Item = {
-    key: "dalva_taxonomies",
-    slug: "taxonomies",
-    name: "Taxonomia",
-    namePlural: "Taxonomias",
-    fields: taxonomyFields,
-    items: {}
-};
-
 const routesTaxonomy: Item = {
     key: "dalva_routes",
     slug: "routes",
@@ -116,30 +104,38 @@ const routesTaxonomy: Item = {
     items: {}
 };
 
-export const TAXONOMIES: TaxonomyMap = {
-
-    clients: clientsTaxonomy,
-    employees: employeesTaxonomy,
-    classes: classesTaxonomy,
-    lessons: lessonsTaxonomy,
-    disciplines: disciplineTaxonomy,
-    taxonomies: taxonomyTaxonomy,
-    routes: routesTaxonomy
-
+export const OIE_TAXONOMY: Item = {
+    key: "dalva_taxonomies",
+    slug: "taxonomies",
+    name: "Taxonomia",
+    namePlural: "Taxonomias",
+    fields: taxonomyFields,
+    items: {
+        [routesTaxonomy.slug]: routesTaxonomy,
+        [disciplineTaxonomy.slug]: disciplineTaxonomy,
+        [classesTaxonomy.slug]: classesTaxonomy,
+        [lessonsTaxonomy.slug]: lessonsTaxonomy,
+        [employeesTaxonomy.slug]: employeesTaxonomy,
+        [clientsTaxonomy.slug]: clientsTaxonomy
+    }
 };
 
-Object.keys(TAXONOMIES).map((slug, index) => {
+Object.keys(OIE_TAXONOMY.items).map((slug, index) => {
 
-    let taxonomy = TAXONOMIES[slug];
+    let taxonomy = OIE_TAXONOMY.items[slug];
 
     let localData = localStorage.getItem(taxonomy.key);
 
-    if (localData)
-        TAXONOMIES[slug] = JSON.parse(localData);
+    if (localData) {
+        console.log(taxonomy.name, 'has local data, overwriting')
+        OIE_TAXONOMY.items[slug] = JSON.parse(localData);
+    }
     else
         localStorage.setItem(taxonomy.key, JSON.stringify(taxonomy));
 
 });
+
+console.log('OIE_TAXONOMY:', OIE_TAXONOMY)
 
 interface PageMap {
     [key: string]: PageConfig;

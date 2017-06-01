@@ -1,13 +1,12 @@
-import { TAXONOMIES, TaxonomyMap } from "./constants"
+import { OIE_TAXONOMY } from "./constants"
 import * as update from "immutability-helper"
 import { Item } from "./components/Taxonomy/Taxonomy";
 import { createStore } from 'redux'
 import { RouteParams, parseRoute } from "./components/Routes/index";
-import { ItemCollection } from "./components/Taxonomy/TaxonomyItem";
 
 interface AppData {
     route: RouteParams;
-    taxonomies: ItemCollection;
+    taxonomy: Item;
 }
 
 let startingRoute = parseRoute();
@@ -21,7 +20,7 @@ if (!startingRoute.taxonomy) {
 
 export const appData: AppData = {
     route: startingRoute,
-    taxonomies: TAXONOMIES
+    taxonomy: OIE_TAXONOMY
 }
 
 export interface ReducerActions {
@@ -34,13 +33,13 @@ export interface ReducerActions {
     nextPage?: string;
 }
 
-const reducer = (state = appData, action: ReducerActions) => {
+const reducer = (state = appData, action: ReducerActions): AppData => {
     console.log(action);
     console.log('state was', state)
     switch (action.type) {
         case "VIEW_ALL":
             return {
-                taxonomies: TAXONOMIES,
+                taxonomy: state.taxonomy,
                 route: {
                     page: "list",
                     taxonomy: action.taxonomyKey
@@ -48,7 +47,7 @@ const reducer = (state = appData, action: ReducerActions) => {
             };
         case "VIEW_SINGLE":
             return {
-                taxonomies: TAXONOMIES,
+                taxonomy: OIE_TAXONOMY,
                 route: {
                     page: "view",
                     taxonomy: action.taxonomyKey,
@@ -56,16 +55,22 @@ const reducer = (state = appData, action: ReducerActions) => {
                 }
             };
         case "UPDATE_ITEM":
-            return update(state.taxonomies[action.taxonomyKey], { $merge: { [action.item.key]: action.item } });
+            return update(state.taxonomy.items[action.taxonomyKey], { $merge: { [action.item.key]: action.item } });
         case "CREATE_ITEM":
 
             console.log('action is', action)
 
-            let taxonomy = state.taxonomies[action.taxonomy.slug];
+            let taxonomy: Item = state.taxonomy.items[action.taxonomy.slug];
 
-            let updateTax = update(taxonomy, { items: { $merge: { [action.item.key]: action.item } } })
+            //update taxonomy
+            let updateTax: Item = update(taxonomy, { items: { $merge: { [action.item.key]: action.item } } })
 
-            let taxonomies = update(state.taxonomies, { $merge: { [updateTax.slug]: updateTax } })
+            //merge updated taxonomy into the map
+            let taxonomies = update(state.taxonomy.items, { $merge: { [updateTax.slug]: updateTax } })
+
+            //merge taxonomy
+
+            let oie_taxonomy = update(state.taxonomy, { $merge: { items: taxonomies } })
 
             localStorage.setItem(action.taxonomy.key, JSON.stringify(updateTax))
 
@@ -77,14 +82,16 @@ const reducer = (state = appData, action: ReducerActions) => {
 
             console.log('route with next target:', route)
 
-            return {
-                taxonomies: taxonomies,
+            let response: AppData = {
+                taxonomy: oie_taxonomy,
                 route: route
-            };
+            }
+
+            return response;
 
         case "CHANGE_ROUTE":
             return {
-                taxonomies: state.taxonomies,
+                taxonomy: state.taxonomy,
                 route: action.route
             };
 

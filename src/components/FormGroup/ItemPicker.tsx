@@ -1,11 +1,11 @@
 import * as React from "react";
-import { ItemCollection } from "../Taxonomy/TaxonomyItem";
+import { TaxonomyMap } from "../Taxonomy/TaxonomyItem";
 import { ItemList } from "../Taxonomy/ItemList";
 import { Item } from "../Taxonomy/Taxonomy";
 
 export interface ItemPickerProps {
-    sourceItems: ItemCollection;
-    targeetItems: ItemCollection;
+    sourceItems: TaxonomyMap;
+    targeetItems: TaxonomyMap;
     filter: Function;
     onDelete: Function;
     onChange: Function;
@@ -22,7 +22,7 @@ export class ItemPicker extends React.Component<ItemPickerProps, undefined> {
 
         let sourceItems = JSON.parse(JSON.stringify(this.props.sourceItems));
 
-        let filteredItems: ItemCollection = {}
+        let filteredItems: TaxonomyMap = {}
 
         Object.keys(sourceItems).map(key => {
 

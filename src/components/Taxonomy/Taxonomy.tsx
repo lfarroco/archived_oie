@@ -1,5 +1,4 @@
-import { ItemCollection, ItemFieldsCollection } from "./TaxonomyItem"
-import { TaxonomyMap } from "../../constants";
+import { TaxonomyMap, ItemFieldsCollection } from "./TaxonomyItem"
 
 export class Item {
     [index: string]: any;

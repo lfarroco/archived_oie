@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ItemCollection, ItemFieldsCollection } from "./TaxonomyItem"
+import { TaxonomyMap, ItemFieldsCollection } from "./TaxonomyItem"
 
 import { ItemFields } from "./ItemFields";
 import { RouteParams } from "../Routes";
@@ -14,6 +14,7 @@ import { BlockEditor } from "../Block/BlockEditor";
 import { Page } from "../Page/Page"
 import { PAGES, PageConfig } from "../../constants";
 import { oieStore } from "../../store";
+import { AppData } from "../../index";
 
 interface TaxonomyContainerProps {
     taxonomy: Item;
@@ -23,7 +24,7 @@ interface TaxonomyContainerProps {
 }
 
 interface TaxonomyContainerState {
-    data: ItemCollection | Item;
+    data: TaxonomyMap | Item;
     filter: filterOptions;
 }
 
@@ -95,13 +96,15 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
 
     getPageData(taxonomyKey: string, dataType: "single" | "all", itemKey?: string) {
 
-        let data: ItemCollection;
+        let data: TaxonomyMap;
         let localData: string;
-        let result: ItemCollection | Item;
+        let result: TaxonomyMap | Item;
 
         console.log(oieStore.getState(), taxonomyKey)
 
-        let taxonomy = oieStore.getState().taxonomies[taxonomyKey];
+        let state: AppData = oieStore.getState();
+
+        let taxonomy = state.taxonomy.items[taxonomyKey];
         console.log('getting page data...')
 
         switch (dataType) {
@@ -160,7 +163,7 @@ export class PageContainer extends React.Component<TaxonomyContainerProps, Taxon
 
 
 
-    saveItemsToDB(items: ItemCollection) {
+    saveItemsToDB(items: TaxonomyMap) {
 
         var json = JSON.stringify(items);
 

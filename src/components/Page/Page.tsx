@@ -3,7 +3,7 @@ import * as React from "react";
 import { Item } from "../Taxonomy/Taxonomy";
 import { ItemList } from "../Taxonomy/ItemList";
 import { RouteParams } from "../Routes/index";
-import { ItemCollection } from "../Taxonomy/TaxonomyItem";
+import { TaxonomyMap } from "../Taxonomy/TaxonomyItem";
 import { ItemProfile } from "../Taxonomy/ItemProfile";
 import { actions } from "../Actions/index";
 import { ComponentMap, ComponentOptions } from "../../constants";

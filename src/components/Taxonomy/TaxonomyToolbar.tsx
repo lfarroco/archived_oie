@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { RouteParams } from "../Routes";
-import { ItemCollection, ItemFieldsCollection } from "./TaxonomyItem"
+import { TaxonomyMap, ItemFieldsCollection } from "./TaxonomyItem"
 import { Item } from "./Taxonomy";
 import { FilterForm } from "../Filter/FilterForm";
 import { FilterFormState } from "../Filter/FilterForm";

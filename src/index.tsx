@@ -9,14 +9,13 @@ import { oieStore, appData } from './store';
 import { App } from "./App";
 import { Item } from "./components/Taxonomy/Taxonomy";
 import { RouteParams, parseRoute } from "./components/Routes/index";
-import { ItemCollection } from "./components/Taxonomy/TaxonomyItem";
 
-export interface AppContainerState {
-    taxonomies: ItemCollection;
+export interface AppData {
+    taxonomy: Item;
     route: RouteParams;
 }
 
-class AppContainer extends React.Component<undefined, AppContainerState> {
+class AppContainer extends React.Component<undefined, AppData> {
 
     unsubscribe: any;
 
@@ -24,7 +23,9 @@ class AppContainer extends React.Component<undefined, AppContainerState> {
 
         super(props);
 
-        this.state = oieStore.getState();
+        let state: any = oieStore.getState();
+
+        this.state = state;
 
         window.onhashchange = (ev) => {
 
@@ -45,8 +46,10 @@ class AppContainer extends React.Component<undefined, AppContainerState> {
 
     }
     componentDidMount() {
-        this.unsubscribe = oieStore.subscribe(() =>
-            this.setState(oieStore.getState())
+        this.unsubscribe = oieStore.subscribe(() => {
+            let state: any = oieStore.getState();
+            this.setState(state)
+        }
         );
     }
     componentWillUnmount() {
@@ -58,7 +61,7 @@ class AppContainer extends React.Component<undefined, AppContainerState> {
 
         return (
             <App
-                taxonomy={this.state.taxonomies[this.state.route.taxonomy]}
+                taxonomy={this.state.taxonomy.items[this.state.route.taxonomy]}
                 route={this.state.route}
 
             />
