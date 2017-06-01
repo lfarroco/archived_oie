@@ -1,24 +1,18 @@
 import * as React from "react";
 import { NavbarButton } from "./NavbarButton";
 import { NavBarButtons } from "./Buttons";
+import { RouteParams } from "../Routes/index";
 
 interface NavBarProps {
     onLinkClick: Function;
     projectName: string;
+    route: RouteParams;
 }
 interface NavbarState {
     selected: string;
 }
 
-export class Navbar extends React.Component<NavBarProps, NavbarState> {
-
-    constructor(props: NavBarProps) {
-
-        super(props);
-
-        this.state = { selected: '' }
-
-    }
+export class Navbar extends React.Component<NavBarProps, undefined> {
 
     render() {
 
@@ -30,7 +24,9 @@ export class Navbar extends React.Component<NavBarProps, NavbarState> {
 
                 let child = button.children[childKey];
 
-                let isSelected = childKey === this.state.selected ? true : false;
+                let routetarget = this.props.route.taxonomy + '/' + this.props.route.page;
+
+                let isSelected = child.target === routetarget ? true : false;
 
                 return <li key={index}>
                     <NavbarButton
@@ -64,10 +60,10 @@ export class Navbar extends React.Component<NavBarProps, NavbarState> {
             ;
     }
 
-    handleLinkClick(e: string) {
+    handleLinkClick(target: string) {
 
 
-        this.props.onLinkClick(e);
+        this.props.onLinkClick(target);
 
     }
 

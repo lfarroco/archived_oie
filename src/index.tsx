@@ -23,9 +23,7 @@ class AppContainer extends React.Component<undefined, AppData> {
 
         super(props);
 
-        let state: any = oieStore.getState();
-
-        this.state = state;
+        this.state = oieStore.getState();
 
         window.onhashchange = (ev) => {
 
@@ -34,10 +32,13 @@ class AppContainer extends React.Component<undefined, AppData> {
                 let str = ev.newURL.split('#')[1];
                 let routeParams = parseRoute(str);
 
-                oieStore.dispatch({
-                    type: "CHANGE_ROUTE",
-                    route: routeParams
-                });
+                console.log('different route?', routeParams != this.state.route);
+
+                if (routeParams != this.state.route)
+                    oieStore.dispatch({
+                        type: "CHANGE_ROUTE",
+                        route: routeParams
+                    });
 
             }
 
@@ -66,6 +67,9 @@ class AppContainer extends React.Component<undefined, AppData> {
 
             />
         )
+    }
+    compoenentWillreceiveProps() {
+
     }
 }
 ReactDOM.render(

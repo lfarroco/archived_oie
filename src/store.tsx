@@ -40,19 +40,26 @@ const reducer = (state = appData, action: ReducerActions): AppData => {
         case "VIEW_ALL":
             return {
                 taxonomy: state.taxonomy,
-                route: {
-                    page: "list",
-                    taxonomy: action.taxonomyKey
-                }
+                route: update(state.route, {
+                    $merge: {
+                        page: "list",
+                        taxonomy: action.taxonomyKey
+                    }
+                })
+
+
             };
         case "VIEW_SINGLE":
             return {
                 taxonomy: OIE_TAXONOMY,
-                route: {
-                    page: "view",
-                    taxonomy: action.taxonomyKey,
-                    key: action.itemKey
-                }
+                route: update(state.route, {
+                    $merge: {
+                        page: "view",
+                        taxonomy: action.taxonomyKey,
+                        key: action.itemKey
+                    }
+                })
+
             };
         case "UPDATE_ITEM":
             return update(state.taxonomy.items[action.taxonomyKey], { $merge: { [action.item.key]: action.item } });
@@ -76,18 +83,13 @@ const reducer = (state = appData, action: ReducerActions): AppData => {
 
             let nextPage = action.nextPage || state.route.page;
 
-            console.log('route with prev target:', state.route)
-
             let route = update(state.route, { $merge: { page: nextPage } })
+            console.log('>>>', route)
 
-            console.log('route with next target:', route)
-
-            let response: AppData = {
+            return {
                 taxonomy: oie_taxonomy,
                 route: route
-            }
-
-            return response;
+            };
 
         case "CHANGE_ROUTE":
             return {

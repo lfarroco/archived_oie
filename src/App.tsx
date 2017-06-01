@@ -25,7 +25,8 @@ export class App extends React.Component<AppData, undefined> {
                     onLinkClick={(route: string) => {
                         this.switchRoute(route)
                     }}
-                    projectName="dalva"
+                    projectName="oie"
+                    route={this.props.route}
                 />
                 <Content
                     route={this.props.route}
@@ -40,9 +41,18 @@ export class App extends React.Component<AppData, undefined> {
 
     switchRoute(route: string) {
 
+        console.log('will change:', route)
+
         location.hash = "#" + route;
 
         //initiates window.onhashchange, defined in this class' constructor
+
+    }
+
+    componentWillReceiveProps(nextProps: AppData) {
+
+        if (this.props.route != nextProps.route)
+            this.handleChangeRoute(nextProps.route)
 
     }
 
